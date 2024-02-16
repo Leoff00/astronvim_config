@@ -18,7 +18,17 @@ return {
   },
 
   -- Set colorscheme to use
-  colorscheme = "astrodark",
+  colorscheme = "gruvbox",
+
+  -- Automatically init neotree,
+  vim.api.nvim_create_augroup("neotree", {}),
+  vim.api.nvim_create_autocmd("UiEnter", {
+    desc = "Open Neotree automatically",
+    group = "neotree",
+    callback = function()
+      if vim.fn.argc() == 0 then vim.cmd "Neotree toggle" end
+    end,
+  }),
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
@@ -43,7 +53,7 @@ return {
         -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
         -- "lua_ls",
       },
-      timeout_ms = 1000, -- default format timeout
+      timeout_ms = 500, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
       --   return true
       -- end
@@ -56,7 +66,7 @@ return {
 
   -- Configure require("lazy").setup() options
   lazy = {
-    defaults = { lazy = true },
+    defaults = { lazy = false },
     performance = {
       rtp = {
         -- customize default disabled vim plugins
